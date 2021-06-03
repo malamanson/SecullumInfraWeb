@@ -1,6 +1,6 @@
 using System;
 
-namespace SecullumInfraWeb.Models
+namespace SecullumInfraWeb.Models.ViewModels
 {
     public class ErrorViewModel
     {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using SecullumInfraWeb.Models.ViewModels;
 
 namespace SecullumInfraWeb.Controllers
 {
@@ -17,14 +18,14 @@ namespace SecullumInfraWeb.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Secullum Infra Web Version 1.0.0";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "malamanson@hotmail.com.";
 
             return View();
         }
