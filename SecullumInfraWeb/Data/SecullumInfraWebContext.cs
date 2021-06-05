@@ -13,6 +13,9 @@ namespace SecullumInfraWeb.Models
         {
         }
 
-        public DbSet<SecullumInfraWeb.Models.Hardware> Hardware { get; set; }
+        public DbSet<Hardware> Hardware { get; set; }
+        public DbSet<Software> Software { get; set; }
+        public DbSet<Department> Department { get; set; }
+
     }
 }
