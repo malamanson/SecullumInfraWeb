@@ -1,12 +1,12 @@
 ﻿@model SecullumInfraWeb.Models.Hardware
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar:";
 }
 
-<h2>Create</h2>
+<h2>Hardware</h2>
 
-<h4>Hardware</h4>
+<h4>Cadastrar:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,19 +23,29 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Configuration" class="control-label"></label>
-                <input asp-for="Configuration" class="form-control" />
-                <span asp-validation-for="Configuration" class="text-danger"></span>
+                <label asp-for="Processor" class="control-label"></label>
+                <input asp-for="Processor" class="form-control" />
+                <span asp-validation-for="Processor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="Ram" class="control-label"></label>
+                <input asp-for="Ram" class="form-control" />
+                <span asp-validation-for="Ram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HdSsd" class="control-label"></label>
+                <input asp-for="HdSsd" class="form-control" />
+                <span asp-validation-for="HdSsd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>
 
 @section Scripts {

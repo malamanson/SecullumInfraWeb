@@ -25,7 +25,7 @@ namespace SecullumInfraWeb.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "malamanson@hotmail.com.";
+            ViewData["Message"] = "Wiliam Maciel(Malamanson)";
 
             return View();
         }

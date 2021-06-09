@@ -8,24 +8,25 @@ namespace SecullumInfraWeb.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Version { get; set; }
         public DateTime Date { get; set; }
-        public string Key { get; set; }
+        public string Serial { get; set; }
         public Hardware Hardware { get; set; }
         public Department Department { get; set; }
         public SoftwareStatus Status { get; set; }
 
         public Software()
         {
-
         }
 
-        public Software(int id, string name, DateTime date, string key, 
-                        Hardware hardware, Department department, SoftwareStatus status)
+        public Software(int id, string name, string version, DateTime date, 
+            string serial, Hardware hardware, Department department, SoftwareStatus status)
         {
             Id = id;
             Name = name;
+            Version = version;
             Date = date;
-            Key = key;
+            Serial = serial;
             Hardware = hardware;
             Department = department;
             Status = status;

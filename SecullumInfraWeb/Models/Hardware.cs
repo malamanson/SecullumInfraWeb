@@ -10,7 +10,9 @@ namespace SecullumInfraWeb.Models
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
-        public string Configuration { get; set; }
+        public string Processor { get; set; }
+        public int Ram { get; set; }
+        public string  HdSsd { get; set; }
         public Department Department { get; set; }
         public HardwareStatus Status { get; set; }
         public ICollection<Software> Softwares { get; set; } = new List<Software>(); 
@@ -21,13 +23,15 @@ namespace SecullumInfraWeb.Models
         }
 
         public Hardware(int id, string name, DateTime date, string description,
-                        string configuration, Department department, HardwareStatus status)
+            string processor, int ram, string hdSsd, Department department, HardwareStatus status)
         {
             Id = id;
             Name = name;
             Date = date;
             Description = description;
-            Configuration = configuration;
+            Processor = processor;
+            Ram = ram;
+            HdSsd = hdSsd;
             Department = department;
             Status = status;
         }

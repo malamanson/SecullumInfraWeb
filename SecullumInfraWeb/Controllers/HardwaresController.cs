@@ -18,13 +18,13 @@ namespace SecullumInfraWeb.Controllers
             _context = context;
         }
 
-        // GET: Hardwares
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Hardware.ToListAsync());
         }
 
-        // GET: Hardwares/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +42,16 @@ namespace SecullumInfraWeb.Controllers
             return View(hardware);
         }
 
-        // GET: Hardwares/Create
+        
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Hardwares/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Configuration")] Hardware hardware)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Processor, Ram, HdSsd")] Hardware hardware)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +62,7 @@ namespace SecullumInfraWeb.Controllers
             return View(hardware);
         }
 
-        // GET: Hardwares/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,12 +78,10 @@ namespace SecullumInfraWeb.Controllers
             return View(hardware);
         }
 
-        // POST: Hardwares/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Configuration")] Hardware hardware)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Processor, Ram, HdSsd")] Hardware hardware)
         {
             if (id != hardware.Id)
             {
@@ -115,7 +111,7 @@ namespace SecullumInfraWeb.Controllers
             return View(hardware);
         }
 
-        // GET: Hardwares/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +129,7 @@ namespace SecullumInfraWeb.Controllers
             return View(hardware);
         }
 
-        // POST: Hardwares/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
