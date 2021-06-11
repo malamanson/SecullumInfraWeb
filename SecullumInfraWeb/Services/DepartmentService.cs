@@ -6,25 +6,24 @@ using System.Threading.Tasks;
 
 namespace SecullumInfraWeb.Services
 {
-    public class SoftwareService
+    public class DepartmentService
     {
         private readonly SecullumInfraWebContext _context;
 
-        public SoftwareService(SecullumInfraWebContext context)
+        public DepartmentService(SecullumInfraWebContext context)
         {
             _context = context;
         }
 
-        public List<Software> FindAll()
+        public List<Department> FindAll()
         {
-            return _context.Software.ToList();
+            return _context.Department.OrderBy(x => x.Name).ToList();
         }
 
-        public void Insert(Software obj)
+        public void Insert(Department obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
         }
-
     }
 }

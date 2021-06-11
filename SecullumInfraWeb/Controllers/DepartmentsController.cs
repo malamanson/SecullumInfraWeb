@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SecullumInfraWeb.Models;
-using SecullumInfraWeb.Models.ViewModels;
 using SecullumInfraWeb.Services;
 using System;
 using System.Collections.Generic;
@@ -9,36 +8,31 @@ using System.Threading.Tasks;
 
 namespace SecullumInfraWeb.Controllers
 {
-    public class SoftwaresController : Controller
+    public class DepartmentsController : Controller
     {
-        private readonly SoftwareService _softwareService;
         private readonly DepartmentService _departmentService;
-
-        public SoftwaresController(SoftwareService softwareService, DepartmentService departmentService)
+         
+        public DepartmentsController(DepartmentService departmentService)
         {
-            _softwareService = softwareService;
             _departmentService = departmentService;
         }
 
         public IActionResult Index()
         {
-            var list = _softwareService.FindAll();
-
+            var list = _departmentService.FindAll();
             return View(list);
         }
-        
+
         public IActionResult Create()
         {
-            var departments = _departmentService.FindAll();
-            var viewModel = new SoftwareFormViewModel { Departments = departments };
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Software software)
+        public IActionResult Create(Department department)
         {
-            _softwareService.Insert(software);
+            _departmentService.Insert(department);
             return RedirectToAction(nameof(Index));
         }
     }

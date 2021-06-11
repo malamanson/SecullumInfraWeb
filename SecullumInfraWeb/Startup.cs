@@ -40,6 +40,7 @@ namespace SecullumInfraWeb
                     options.UseSqlServer(Configuration.GetConnectionString("SecullumInfraWebContext")));
 
             services.AddScoped<SoftwareService>();
+            services.AddScoped<DepartmentService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -14,6 +14,7 @@ namespace SecullumInfraWeb.Models
         public int Ram { get; set; }
         public string  HdSsd { get; set; }
         public Department Department { get; set; }
+        public int DepartmentId { get; set; }
         public HardwareStatus Status { get; set; }
         public ICollection<Software> Softwares { get; set; } = new List<Software>(); 
 

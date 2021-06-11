@@ -13,6 +13,7 @@ namespace SecullumInfraWeb.Models
         public string Serial { get; set; }
         public Hardware Hardware { get; set; }
         public Department Department { get; set; }
+        public int DepartmentId { get; set; }
         public SoftwareStatus Status { get; set; }
 
         public Software()

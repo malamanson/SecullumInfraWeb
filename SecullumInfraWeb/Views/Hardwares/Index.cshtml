@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<SecullumInfraWeb.Models.Hardware>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Equipamentos:";
 }
 
-<h2>Equipamentos:</h2>
-
+<h2>@ViewData["Title"]</h2>
+<hr />
 <p>
     <a asp-action="Create" class="btn btn-default">Cadastrar Novo:</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-striped table-hover">
+    <thead class="bg-primary">
         <tr>
             <th>
                 @Html.DisplayName("Nome")
