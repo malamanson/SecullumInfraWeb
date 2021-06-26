@@ -41,6 +41,7 @@ namespace SecullumInfraWeb
 
             services.AddScoped<SoftwareService>();
             services.AddScoped<DepartmentService>();
+            services.AddScoped<HardwareService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
