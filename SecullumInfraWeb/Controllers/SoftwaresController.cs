@@ -41,5 +41,28 @@ namespace SecullumInfraWeb.Controllers
             _softwareService.Insert(software);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _softwareService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _softwareService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -26,5 +26,16 @@ namespace SecullumInfraWeb.Services
             _context.SaveChanges();
         }
 
+        public Hardware FindById(int id)
+        {
+            return _context.Hardware.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remone(int id)
+        {
+            var obj = _context.Hardware.Find(id);
+            _context.Hardware.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 }

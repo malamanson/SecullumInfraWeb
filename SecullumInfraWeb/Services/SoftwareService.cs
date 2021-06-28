@@ -26,5 +26,17 @@ namespace SecullumInfraWeb.Services
             _context.SaveChanges();
         }
 
+        public Software FindById(int id)
+        {
+            return _context.Software.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj =_context.Software.Find(id);
+            _context.Software.Remove(obj);
+            _context.SaveChanges();
+        }
+
     }
 }

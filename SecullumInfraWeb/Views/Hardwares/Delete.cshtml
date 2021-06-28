@@ -1,0 +1,60 @@
+﻿@model SecullumInfraWeb.Models.Hardware
+
+@{
+    ViewData["Title"] = "Apagar:";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Tem certeza que deseja remover?</h3>
+
+<div>
+    <h4>Equipamento:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Processor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ram)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HdSsd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HdSsd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Apagar" class="btn btn-danger" />
+    </form>
+    <div>
+        <a asp-action="Index">Voltar para a lista</a>
+    </div>
+</div>

@@ -25,5 +25,17 @@ namespace SecullumInfraWeb.Services
             _context.Add(obj);
             _context.SaveChanges();
         }
+        
+        public Department FindById(int id)
+        {
+            return _context.Department.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Department.Find(id);
+            _context.Department.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 }
