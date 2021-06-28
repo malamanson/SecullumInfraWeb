@@ -1,4 +1,6 @@
-﻿using SecullumInfraWeb.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SecullumInfraWeb.Models;
+using SecullumInfraWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,7 @@ namespace SecullumInfraWeb.Services
 
         public Hardware FindById(int id)
         {
-            return _context.Hardware.FirstOrDefault(obj => obj.Id == id);
+            return _context.Hardware.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remone(int id)
@@ -36,6 +38,22 @@ namespace SecullumInfraWeb.Services
             var obj = _context.Hardware.Find(id);
             _context.Hardware.Remove(obj);
             _context.SaveChanges();
+        }
+        public void Update(Hardware obj)
+        {
+            if (!_context.Hardware.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Hardware ID não encontrado!");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model SecullumInfraWeb.Models.ViewModels.HardwareFormViewModel
+
+@{
+    ViewData["Title"] = "Editar:";
+}
+
+<h2>Equipamentos</h2>
+
+<h4>Editar:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Hardware.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Hardware.Name" class="control-label"></label>
+                <input asp-for="Hardware.Name" class="form-control" />
+                <span asp-validation-for="Hardware.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hardware.Description" class="control-label"></label>
+                <input asp-for="Hardware.Description" class="form-control" />
+                <span asp-validation-for="Hardware.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hardware.Processor" class="control-label"></label>
+                <input asp-for="Hardware.Processor" class="form-control" />
+                <span asp-validation-for="Hardware.Processor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hardware.Ram" class="control-label"></label>
+                <input asp-for="Hardware.Ram" class="form-control" />
+                <span asp-validation-for="Hardware.Ram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hardware. HdSsd" class="control-label"></label>
+                <input asp-for="Hardware.HdSsd" class="form-control" />
+                <span asp-validation-for="Hardware.HdSsd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hardware.DepartmentId" class="control-label"></label>
+                <select asp-for="Hardware.DepartmentId" asp-items="@(new SelectList(Model.Departments,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

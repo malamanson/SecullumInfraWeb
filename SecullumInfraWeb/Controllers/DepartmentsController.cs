@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SecullumInfraWeb.Models;
+using SecullumInfraWeb.Models.ViewModels;
 using SecullumInfraWeb.Services;
+using SecullumInfraWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +59,45 @@ namespace SecullumInfraWeb.Controllers
         {
             _departmentService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _departmentService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            DepartmentFormViewModel viewModel = new DepartmentFormViewModel { Department = obj};
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Department department)
+        {
+            if (id != department.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _departmentService.Update(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }
