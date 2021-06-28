@@ -1,4 +1,6 @@
-﻿using SecullumInfraWeb.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SecullumInfraWeb.Models;
+using SecullumInfraWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,22 @@ namespace SecullumInfraWeb.Services
             var obj = _context.Department.Find(id);
             _context.Department.Remove(obj);
             _context.SaveChanges();
+        }
+        public void Update(Department obj)
+        {
+            if (!_context.Department.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Department ID não encontrado!");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }
