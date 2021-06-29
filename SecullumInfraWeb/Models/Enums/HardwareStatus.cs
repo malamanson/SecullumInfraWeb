@@ -2,9 +2,9 @@
 {
     public enum HardwareStatus : int
     {
-        Available = 0,
-        Active = 1,
-        UnderMaintenance = 2,
-        Discarted = 3
+        Disponível = 0,
+        Ativo = 1,
+        Manutenção = 2,
+        Descartado = 3
     }
 }

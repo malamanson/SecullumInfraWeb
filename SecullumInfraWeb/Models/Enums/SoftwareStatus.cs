@@ -2,8 +2,8 @@
 {
     public enum SoftwareStatus : int
     {
-        Available = 0,
-        Active = 1,
-        Discarted = 2
+        Disponível = 0,
+        Ativo = 1,
+        Descartado = 2
     }
 }

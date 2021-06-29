@@ -19,6 +19,7 @@ namespace SecullumInfraWeb.Controllers
         {
             _softwareService = softwareService;
             _departmentService = departmentService;
+        
         }
 
         public IActionResult Index()

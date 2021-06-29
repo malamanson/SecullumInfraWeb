@@ -42,6 +42,16 @@
                 <label asp-for="Hardware.DepartmentId" class="control-label"></label>
                 <select asp-for="Hardware.DepartmentId" asp-items="@(new SelectList(Model.Departments,"Id","Name"))" class="form-control"></select>
             </div>
+            <div>
+                <label asp-for="Hardware.Status" class="control-label"></label>
+                <select asp-for="Hardware.Status" class="form-control">
+                    <option selected>Disponível</option>
+                    <option selected>Ativo</option>
+                    <option selected>Manutenção</option>
+                    <option selected>Descartado</option>
+                </select>
+            </div>
+            <p></p>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
