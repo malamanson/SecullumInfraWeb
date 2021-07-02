@@ -98,7 +98,8 @@ namespace SecullumInfraWeb.Controllers
                 return NotFound();
             }
             List<Department> departments = _departmentService.FindAll();
-            SoftwareFormViewModel viewModel = new SoftwareFormViewModel { Software = obj, Departments = departments };
+            List<Hardware> hardwares = _hardwareService.FindAll();
+            SoftwareFormViewModel viewModel = new SoftwareFormViewModel { Software = obj, Hardwares = hardwares, Departments = departments};
             return View(viewModel);
         }
 

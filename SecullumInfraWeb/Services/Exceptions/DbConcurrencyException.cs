@@ -6,7 +6,6 @@ namespace SecullumInfraWeb.Services.Exceptions
     {
         public DbConcurrencyException(string message) : base(message)
         {
-
         }
     }
 }

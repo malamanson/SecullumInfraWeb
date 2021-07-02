@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SecullumInfraWeb.Controllers
 {
@@ -57,8 +58,15 @@ namespace SecullumInfraWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _departmentService.Remove(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _departmentService.Remove(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public IActionResult Edit(int? id)
@@ -98,6 +106,15 @@ namespace SecullumInfraWeb.Controllers
             {
                 return BadRequest();
             }
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

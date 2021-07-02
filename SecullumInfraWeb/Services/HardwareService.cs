@@ -34,11 +34,18 @@ namespace SecullumInfraWeb.Services
             return _context.Hardware.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
-        public void Remone(int id)
+        public void Remove(int id)
         {
-            var obj = _context.Hardware.Find(id);
-            _context.Hardware.Remove(obj);
-            _context.SaveChanges();
+            try
+            {
+                var obj = _context.Hardware.Find(id);
+                _context.Hardware.Remove(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("Você não pode apagar este Equipamento...existem Softwares vinculados à ele");
+            }
         }
         public void Update(Hardware obj)
         {

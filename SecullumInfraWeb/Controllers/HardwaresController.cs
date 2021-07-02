@@ -6,6 +6,7 @@ using SecullumInfraWeb.Services;
 using SecullumInfraWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,8 +64,15 @@ namespace SecullumInfraWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _hardwareService.Remone(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _hardwareService.Remove(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public IActionResult Details(int? id)
@@ -127,6 +135,15 @@ namespace SecullumInfraWeb.Controllers
             var result = _hardwareService.FindByDate(minDate, maxDate, searchString);
             
             return View(result);
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SecullumInfraWeb.Migrations
 {
-    public partial class Departamentos_Id : Migration
+    public partial class db_Alter : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,19 +14,9 @@ namespace SecullumInfraWeb.Migrations
                 name: "FK_Software_Department_DepartmentId",
                 table: "Software");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "DepartmentId",
-                table: "Software",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "DepartmentId",
-                table: "Hardware",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
+            migrationBuilder.DropForeignKey(
+                name: "FK_Software_Hardware_HardwareId",
+                table: "Software");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Hardware_Department_DepartmentId",
@@ -41,6 +31,14 @@ namespace SecullumInfraWeb.Migrations
                 table: "Software",
                 column: "DepartmentId",
                 principalTable: "Department",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Software_Hardware_HardwareId",
+                table: "Software",
+                column: "HardwareId",
+                principalTable: "Hardware",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -55,17 +53,9 @@ namespace SecullumInfraWeb.Migrations
                 name: "FK_Software_Department_DepartmentId",
                 table: "Software");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "DepartmentId",
-                table: "Software",
-                nullable: true,
-                oldClrType: typeof(int));
-
-            migrationBuilder.AlterColumn<int>(
-                name: "DepartmentId",
-                table: "Hardware",
-                nullable: true,
-                oldClrType: typeof(int));
+            migrationBuilder.DropForeignKey(
+                name: "FK_Software_Hardware_HardwareId",
+                table: "Software");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Hardware_Department_DepartmentId",
@@ -80,6 +70,14 @@ namespace SecullumInfraWeb.Migrations
                 table: "Software",
                 column: "DepartmentId",
                 principalTable: "Department",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Software_Hardware_HardwareId",
+                table: "Software",
+                column: "HardwareId",
+                principalTable: "Hardware",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

@@ -35,9 +35,16 @@ namespace SecullumInfraWeb.Services
 
         public void Remove(int id)
         {
-            var obj = _context.Department.Find(id);
-            _context.Department.Remove(obj);
-            _context.SaveChanges();
+            try
+            {
+                var obj = _context.Department.Find(id);
+                _context.Department.Remove(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("Você não pode apagar este Departamento...existem Equipamentos ou Softwares vinculados à ele");
+            }
         }
         public void Update(Department obj)
         {

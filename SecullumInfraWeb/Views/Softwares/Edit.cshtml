@@ -30,7 +30,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Software.Hardware" class="control-label"></label>
-                <input asp-for="Software.Hardware" class="form-control" />
+                <select asp-for="Software.HardwareId" asp-items="@(new SelectList(Model.Hardwares,"Id", "Name"))" class="form-control">
+                    <option selected>Disponível</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Software.DepartmentId" class="control-label"></label>
