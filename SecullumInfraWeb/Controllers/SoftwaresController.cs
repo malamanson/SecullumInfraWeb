@@ -14,11 +14,13 @@ namespace SecullumInfraWeb.Controllers
     {
         private readonly SoftwareService _softwareService;
         private readonly DepartmentService _departmentService;
+        private readonly HardwareService _hardwareService;
 
-        public SoftwaresController(SoftwareService softwareService, DepartmentService departmentService)
+        public SoftwaresController(SoftwareService softwareService, DepartmentService departmentService, HardwareService hardwareService)
         {
             _softwareService = softwareService;
             _departmentService = departmentService;
+            _hardwareService = hardwareService;
         
         }
 
@@ -31,8 +33,9 @@ namespace SecullumInfraWeb.Controllers
 
         public IActionResult Create()
         {
+            var hardwares = _hardwareService.FindAll();
             var departments = _departmentService.FindAll();
-            var viewModel = new SoftwareFormViewModel { Departments = departments };
+            var viewModel = new SoftwareFormViewModel {  Departments = departments, Hardwares = hardwares };
             return View(viewModel);
         }
 
@@ -120,6 +123,12 @@ namespace SecullumInfraWeb.Controllers
             {
                 return BadRequest();
             }
+        }
+        public IActionResult Search(DateTime? minDate, DateTime maxDate, string searchString)
+        {
+            var result = _softwareService.FindByDate(minDate, maxDate, searchString);
+
+            return View(result);
         }
     }
 }

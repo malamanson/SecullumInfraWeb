@@ -55,6 +55,23 @@ namespace SecullumInfraWeb.Services
                 throw new DbConcurrencyException(e.Message);
             }
         }
-
+        public List<Software> FindByDate(DateTime? minDate, DateTime? maxDate, string searchString)
+        {
+            var result = from obj in _context.Software select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(obj => obj.Version.Contains(searchString)
+                                       || obj.Name.Contains(searchString) || obj.Serial.Contains(searchString));
+            }
+            return result.ToList();
+        }
     }
 }

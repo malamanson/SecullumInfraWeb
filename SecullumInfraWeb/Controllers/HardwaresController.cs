@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SecullumInfraWeb.Models;
+using SecullumInfraWeb.Models.Enums;
 using SecullumInfraWeb.Models.ViewModels;
 using SecullumInfraWeb.Services;
 using SecullumInfraWeb.Services.Exceptions;
@@ -119,6 +120,13 @@ namespace SecullumInfraWeb.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        public IActionResult Search(DateTime? minDate, DateTime maxDate, string searchString)
+        {
+            var result = _hardwareService.FindByDate(minDate, maxDate, searchString);
+            
+            return View(result);
         }
     }
 }

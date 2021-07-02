@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SecullumInfraWeb.Models;
+using SecullumInfraWeb.Models.Enums;
 using SecullumInfraWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,25 @@ namespace SecullumInfraWeb.Services
             {
                 throw new DbConcurrencyException(e.Message);
             }
+        }
+
+        public List<Hardware> FindByDate(DateTime? minDate, DateTime? maxDate, string searchString)
+        {
+            var result = from obj in _context.Hardware select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(obj => obj.Processor.Contains(searchString)
+                                       || obj.Name.Contains(searchString) || obj.Description.Contains(searchString));
+            }
+            return result.ToList();
         }
     }
 }

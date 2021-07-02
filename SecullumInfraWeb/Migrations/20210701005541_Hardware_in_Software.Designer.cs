@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecullumInfraWeb.Models;
 
 namespace SecullumInfraWeb.Migrations
 {
     [DbContext(typeof(SecullumInfraWebContext))]
-    partial class SecullumInfraWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210701005541_Hardware_in_Software")]
+    partial class Hardware_in_Software
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

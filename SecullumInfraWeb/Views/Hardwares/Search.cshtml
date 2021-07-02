@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SecullumInfraWeb.Models.Hardware>
+
+@{
+    ViewData["Title"] = "Pesquisar:";
+}
+
+<h2>Equipamentos</h2>
+
+<h4>Pesquisar:</h4>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <form class="navbar-form navbar-left" role="search" asp-action="Search">
+            <div class="form-group">
+                <label>Por Datas:</label>
+                &ensp;
+                &ensp;
+                &ensp;
+                <div class="form-group">
+                    <label for="minDate">Inicial</label>
+                    <input type="date" class="form-control" name="minDate" value="0001-01-01" />
+                </div>
+                &ensp;
+                <div class="form-group">
+                    <label for="maxDate">Final</label>
+                    <input type="date" class="form-control" name="maxDate" value="2045-01-01" />
+                </div>
+                &ensp;
+                &ensp;
+                &ensp;
+                &ensp;
+                <div class="form-group">
+                    &ensp;
+                    <label for="searchString">Por Texto:</label>
+                    <input type="text" class="form-control" name="searchString" value="" />
+                </div>
+            </div>
+            &ensp;
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+</nav>
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        @Html.DisplayName("Nome")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descrição")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Processador")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ram")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Hd/SSD")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Status")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Processor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ram)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HdSsd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Detallhes</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
