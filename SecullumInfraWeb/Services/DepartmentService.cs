@@ -17,36 +17,36 @@ namespace SecullumInfraWeb.Services
             _context = context;
         }
 
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
-        public void Insert(Department obj)
+        public async Task InsertAsync(Department obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
         
-        public Department FindById(int id)
+        public async Task <Department> FindByIdAsync(int id)
         {
-            return _context.Department.FirstOrDefault(obj => obj.Id == id);
+            return await _context.Department.FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             try
             {
                 var obj = _context.Department.Find(id);
                 _context.Department.Remove(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
                 throw new IntegrityException("Você não pode apagar este Departamento...existem Equipamentos ou Softwares vinculados à ele");
             }
         }
-        public void Update(Department obj)
+        public async Task Update(Department obj)
         {
             if (!_context.Department.Any(x => x.Id == obj.Id))
             {
@@ -55,7 +55,7 @@ namespace SecullumInfraWeb.Services
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {

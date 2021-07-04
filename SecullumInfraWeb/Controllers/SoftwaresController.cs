@@ -24,37 +24,37 @@ namespace SecullumInfraWeb.Controllers
         
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _softwareService.FindAll();
+            var list = await _softwareService.FindAllAsync();
 
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var hardwares = _hardwareService.FindAll();
-            var departments = _departmentService.FindAll();
+            var hardwares = await _hardwareService.FindAllAsync();
+            var departments = await _departmentService.FindAllAsync();
             var viewModel = new SoftwareFormViewModel {  Departments = departments, Hardwares = hardwares };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Software software)
+        public async Task<IActionResult> Create(Software software)
         {
-            _softwareService.Insert(software);
+            await _softwareService.InsertAsync(software);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var obj = _softwareService.FindById(id.Value);
+            var obj = await _softwareService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -64,20 +64,20 @@ namespace SecullumInfraWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _softwareService.Remove(id);
+            await _softwareService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var obj = _softwareService.FindById(id.Value);
+            var obj = await _softwareService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -85,27 +85,27 @@ namespace SecullumInfraWeb.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var obj = _softwareService.FindById(id.Value);
+            var obj = await _softwareService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
             }
-            List<Department> departments = _departmentService.FindAll();
-            List<Hardware> hardwares = _hardwareService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
+            List<Hardware> hardwares = await _hardwareService.FindAllAsync();
             SoftwareFormViewModel viewModel = new SoftwareFormViewModel { Software = obj, Hardwares = hardwares, Departments = departments};
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Software software)
+        public async Task<IActionResult> Edit(int id, Software software)
         {
             if (id != software.Id)
             {
@@ -113,7 +113,7 @@ namespace SecullumInfraWeb.Controllers
             }
             try
             {
-                _softwareService.Update(software);
+                await _softwareService.UpdateAsync(software);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException)
@@ -125,9 +125,9 @@ namespace SecullumInfraWeb.Controllers
                 return BadRequest();
             }
         }
-        public IActionResult Search(DateTime? minDate, DateTime maxDate, string searchString)
+        public async Task<IActionResult> Search(DateTime? minDate, DateTime maxDate, string searchString)
         {
-            var result = _softwareService.FindByDate(minDate, maxDate, searchString);
+            var result = await _softwareService.FindByDateAsync(minDate, maxDate, searchString);
 
             return View(result);
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SecullumInfraWeb.Services.Exceptions;
+using System.Threading.Tasks;
 
 namespace SecullumInfraWeb.Services
 {
@@ -16,46 +17,47 @@ namespace SecullumInfraWeb.Services
             _context = context;
         }
 
-        public List<Software> FindAll()
+        public async Task<List<Software>> FindAllAsync()
         {
-            return _context.Software.ToList();
+            return await _context.Software.ToListAsync();
         }
 
-        public void Insert(Software obj)
+        public async Task InsertAsync(Software obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Software FindById(int id)
+        public async Task<Software> FindByIdAsync(int id)
         {
-            return _context.Software.Include(obj => obj.Department.Hardwares).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Software.Include(obj => obj.Department.Hardwares).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.Software.Find(id);
+            var obj = await _context.Software.FindAsync(id);
             _context.Software.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Software obj)
+        public async Task UpdateAsync(Software obj)
         {
-            if (!_context.Software.Any(x => x.Id == obj.Id))
+            var anycon = await _context.Software.AnyAsync(x => x.Id == obj.Id);
+            if (!anycon)
             {
                 throw new NotFoundException("Software ID não encontrado!");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
                 throw new DbConcurrencyException(e.Message);
             }
         }
-        public List<Software> FindByDate(DateTime? minDate, DateTime? maxDate, string searchString)
+        public async Task<List<Software>> FindByDateAsync(DateTime? minDate, DateTime? maxDate, string searchString)
         {
             var result = from obj in _context.Software select obj;
             if (minDate.HasValue)
@@ -71,7 +73,7 @@ namespace SecullumInfraWeb.Services
                 result = result.Where(obj => obj.Version.Contains(searchString)
                                        || obj.Name.Contains(searchString) || obj.Serial.Contains(searchString));
             }
-            return result.ToList();
+            return await result.ToListAsync();
         }
     }
 }

@@ -18,45 +18,46 @@ namespace SecullumInfraWeb.Services
             _context = context;
         }
 
-        public List<Hardware> FindAll()
+        public async Task<List<Hardware>> FindAllAsync()
         {
-            return _context.Hardware.ToList();
+            return await _context.Hardware.ToListAsync();
         }
 
-        public void Insert(Hardware obj)
+        public async Task InsertAsync(Hardware obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Hardware FindById(int id)
+        public async Task<Hardware> FindByIdAsync(int id)
         {
-            return _context.Hardware.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Hardware.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             try
             {
-                var obj = _context.Hardware.Find(id);
+                var obj = await _context.Hardware.FindAsync(id);
                 _context.Hardware.Remove(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
                 throw new IntegrityException("Você não pode apagar este Equipamento...existem Softwares vinculados à ele");
             }
         }
-        public void Update(Hardware obj)
+        public async Task UpdateAsync(Hardware obj)
         {
-            if (!_context.Hardware.Any(x => x.Id == obj.Id))
+            var anycon = await _context.Hardware.AnyAsync(x => x.Id == obj.Id);
+            if (!anycon)
             {
                 throw new NotFoundException("Hardware ID não encontrado!");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -64,7 +65,7 @@ namespace SecullumInfraWeb.Services
             }
         }
 
-        public List<Hardware> FindByDate(DateTime? minDate, DateTime? maxDate, string searchString)
+        public async Task<List<Hardware>> FindByDateAsync(DateTime? minDate, DateTime? maxDate, string searchString)
         {
             var result = from obj in _context.Hardware select obj;
             if (minDate.HasValue)
@@ -80,7 +81,7 @@ namespace SecullumInfraWeb.Services
                 result = result.Where(obj => obj.Processor.Contains(searchString)
                                        || obj.Name.Contains(searchString) || obj.Description.Contains(searchString));
             }
-            return result.ToList();
+            return await result.ToListAsync();
         }
     }
 }

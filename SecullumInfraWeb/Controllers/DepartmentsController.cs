@@ -3,9 +3,6 @@ using SecullumInfraWeb.Models;
 using SecullumInfraWeb.Models.ViewModels;
 using SecullumInfraWeb.Services;
 using SecullumInfraWeb.Services.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
@@ -20,9 +17,9 @@ namespace SecullumInfraWeb.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _departmentService.FindAll();
+            var list = await _departmentService.FindAllAsync();
             return View(list);
         }
 
@@ -33,20 +30,20 @@ namespace SecullumInfraWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Department department)
+        public async Task<IActionResult> Create(Department department)
         {
-            _departmentService.Insert(department);
+            await _departmentService.InsertAsync(department);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var obj = _departmentService.FindById(id.Value);
+            var obj = await _departmentService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -56,11 +53,11 @@ namespace SecullumInfraWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                _departmentService.Remove(id);
+                await _departmentService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)
@@ -69,14 +66,14 @@ namespace SecullumInfraWeb.Controllers
             }
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var obj = _departmentService.FindById(id.Value);
+            var obj = await _departmentService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -87,7 +84,7 @@ namespace SecullumInfraWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Department department)
+        public async Task<IActionResult> Edit(int id, Department department)
         {
             if (id != department.Id)
             {
@@ -95,7 +92,7 @@ namespace SecullumInfraWeb.Controllers
             }
             try
             {
-                _departmentService.Update(department);
+                await _departmentService.Update(department);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException)
