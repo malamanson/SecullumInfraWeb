@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecullumInfraWeb.Models;
 
 namespace SecullumInfraWeb.Migrations
 {
     [DbContext(typeof(SecullumInfraWebContext))]
-    partial class SecullumInfraWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210706001453_Department_Nullable_inSW")]
+    partial class Department_Nullable_inSW
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +71,9 @@ namespace SecullumInfraWeb.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("DepartmentId");
+                    b.Property<int?>("DepartmentId");
 
-                    b.Property<int?>("HardwareId");
+                    b.Property<int>("HardwareId");
 
                     b.Property<string>("Name");
 
@@ -102,12 +104,12 @@ namespace SecullumInfraWeb.Migrations
                 {
                     b.HasOne("SecullumInfraWeb.Models.Department", "Department")
                         .WithMany("Softwares")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("SecullumInfraWeb.Models.Hardware", "Hardware")
                         .WithMany("Softwares")
-                        .HasForeignKey("HardwareId");
+                        .HasForeignKey("HardwareId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

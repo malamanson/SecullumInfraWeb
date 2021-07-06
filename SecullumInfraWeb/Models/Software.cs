@@ -12,7 +12,7 @@ namespace SecullumInfraWeb.Models
         public DateTime Date { get; set; }
         public string Serial { get; set; }
         public Hardware Hardware { get; set; }
-        public int HardwareId { get; set; }
+        public int? HardwareId { get; set; }
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
         public SoftwareStatus Status { get; set; }

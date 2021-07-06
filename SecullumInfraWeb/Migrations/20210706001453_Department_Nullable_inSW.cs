@@ -2,26 +2,25 @@
 
 namespace SecullumInfraWeb.Migrations
 {
-    public partial class Hardware_in_Software : Migration
+    public partial class Department_Nullable_inSW : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Software_Hardware_HardwareId",
+                name: "FK_Software_Department_DepartmentId",
                 table: "Software");
 
             migrationBuilder.AlterColumn<int>(
-                name: "HardwareId",
+                name: "DepartmentId",
                 table: "Software",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(int));
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Software_Hardware_HardwareId",
+                name: "FK_Software_Department_DepartmentId",
                 table: "Software",
-                column: "HardwareId",
-                principalTable: "Hardware",
+                column: "DepartmentId",
+                principalTable: "Department",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
         }
@@ -29,22 +28,23 @@ namespace SecullumInfraWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Software_Hardware_HardwareId",
+                name: "FK_Software_Department_DepartmentId",
                 table: "Software");
 
             migrationBuilder.AlterColumn<int>(
-                name: "HardwareId",
+                name: "DepartmentId",
                 table: "Software",
                 nullable: true,
-                oldClrType: typeof(int));
+                oldClrType: typeof(int),
+                oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Software_Hardware_HardwareId",
+                name: "FK_Software_Department_DepartmentId",
                 table: "Software",
-                column: "HardwareId",
-                principalTable: "Hardware",
+                column: "DepartmentId",
+                principalTable: "Department",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.NoAction);
         }
     }
 }

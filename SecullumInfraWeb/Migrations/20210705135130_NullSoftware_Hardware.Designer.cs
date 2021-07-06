@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecullumInfraWeb.Models;
 
 namespace SecullumInfraWeb.Migrations
 {
     [DbContext(typeof(SecullumInfraWebContext))]
-    partial class SecullumInfraWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210705135130_NullSoftware_Hardware")]
+    partial class NullSoftware_Hardware
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,7 @@ namespace SecullumInfraWeb.Migrations
 
                     b.Property<int>("DepartmentId");
 
-                    b.Property<int?>("HardwareId");
+                    b.Property<int>("HardwareId");
 
                     b.Property<string>("Name");
 
@@ -107,7 +109,8 @@ namespace SecullumInfraWeb.Migrations
 
                     b.HasOne("SecullumInfraWeb.Models.Hardware", "Hardware")
                         .WithMany("Softwares")
-                        .HasForeignKey("HardwareId");
+                        .HasForeignKey("HardwareId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
